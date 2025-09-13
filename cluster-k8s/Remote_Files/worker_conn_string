@@ -1,0 +1,1 @@
+kubeadm join 192.168.216.137:6443 --token filrtt.m42tawmpto73le00 --discovery-token-ca-cert-hash sha256:4738ab082cf80663a999057f6a7a7e45ef617ecd1dd213e7183a98b330c9639d 

@@ -1,0 +1,11 @@
+apiVersion: v1
+data:
+  secretkey: SXJnWjdIekk1ZEV1dnE3UTlUeFpBR0NFWVJkVmhLb0hjZ2Q0Y1N3b1pCWmh6TWlaS1RocFN6SEs1WHVmZlVoVQpoK2VVMzNrYmdsN0FLSmZmL2xMblVRUmhIUDJoS0tCYW5CaXcyQjFwT3o5MWhlTUZzMUw5ajR5MWtsNUczTU9lClFFNDZQQ1lRNDY1THQxZk1laWQ0N0JmWkZ4NlIvTFA2dTNJWEQ3WUpOaXM9
+kind: Secret
+metadata:
+  creationTimestamp: "2025-09-13T23:11:03Z"
+  name: memberlist
+  namespace: metallb-system
+  resourceVersion: "12987"
+  uid: a69fe4ee-8e7c-4569-90d0-1d182b49272f
+type: Opaque
