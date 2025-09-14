@@ -53,6 +53,6 @@ kubectl get nodes -o wide
 
 ``````
 
-![alt text](../Screenshots/nodes.PNG)
+![alt text](Screenshots/nodes.PNG)
 
 
