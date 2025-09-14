@@ -58,9 +58,10 @@ kubectl get nodes -o wide
 # Étape 2: Installation de MetalLB
 
 
-Nous allons installer les composants de MetalLB et configurer son secret de communication interne avant de déployer les pods pour assurer une stabilité immédiate.` 
+Nous allons installer les composants de MetalLB et configurer son secret de communication interne avant de déployer les pods pour assurer une stabilité immédiate.`  
+
 __Créer le namespace metallb-system__ :  
-Ce namespace hébergera tous les composants de MetalLB.
+**Ce namespace hébergera tous les composants de MetalLB.**
 
 ````
 kubectl create ns metallb-system
