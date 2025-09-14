@@ -69,3 +69,101 @@ kubectl create ns metallb-system
 ````
 
 
+
+**Créer le Secret memberlist :**  
+
+Ce secret est crucial pour la communication sécurisée entre les pods MetalLB (Controller et Speakers). Le créer en premier prévient les problèmes de CrashLoopBackOff.  
+
+`````
+kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)"
+``````
+
+**Appliquer les manifestes d'installation de MetalLB :**  
+
+Cela déploiera le Controller (qui gère l'attribution des IPs) et les Speakers (qui annoncent les IPs sur le réseau) dans le namespace metallb-system.  
+
+``````
+kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/main/config/manifests/metallb-native.yaml
+``````
+
+
+**Vérifier la stabilité des pods MetalLB :**  
+
+Assure-toi que tous les pods (controller et speaker) sont en état Running et READY 1/1 avec 0 redémarrages. Cela peut prendre quelques instants.  
+
+``````
+kubectl get pods -n metallb-system -w
+``````
+
+# Étape 3: Configuration des Adresses IP pour MetalLB
+Nous allons définir la plage d'adresses IP que MetalLB pourra attribuer à tes services.  
+
+**Créer le fichier ipaddresspool.yaml :**  
+
+Ce fichier définit la plage d'adresses IP. Adapte la plage addresses à ton sous-réseau et à ta sélection d'IPs libres.
+````
+# ipaddresspool.yaml
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: default-pool
+  namespace: metallb-system
+spec:
+  addresses:
+  - 192.168.216.150-192.168.216.160 # <-- ADAPTE CETTE PLAGE À TON RÉSEAU !`
+
+``````
+
+**Créer le fichier l2advertisement.yaml :**  
+
+Ce fichier indique à MetalLB d'utiliser le mode Layer 2 pour annoncer les adresses IP du pool défini ci-dessus sur ton réseau local.
+````
+# l2advertisement.yaml
+apiVersion: metallb.io/v1beta1
+kind: L2Advertisement
+metadata:
+  name: default
+  namespace: metallb-system
+spec:
+  ipAddressPools:
+  - default-pool
+
+
+````
+**Appliquer les configurations :`**  
+
+``````
+kubectl apply -f ipaddresspool.yaml
+kubectl apply -f l2advertisement.yaml
+``````
+
+
+**Vérifier que les ressources ont été créées :**  
+
+``````
+kubectl get ipaddresspool -n metallb-system
+kubectl get l2advertisement -n metallb-system
+
+``````
+
+# Étape 4: Tester MetalLB avec un Service LoadBalancer
+
+Déployons une application simple et exposons-la pour vérifier que MetalLB attribue bien une EXTERNAL-IP.  
+
+Déployer une application de test (Nginx) :  
+
+``````
+kubectl create deployment nginx-test --image=nginx
+``````
+Exposer l'application en tant que Service LoadBalancer :
+``````
+kubectl expose deployment nginx-test --type=LoadBalancer --port=80
+``````
+**Vérifier le Service et l'EXTERNAL-IP :**  
+
+MetalLB devrait maintenant attribuer une adresse IP de ta plage configurée.
+````
+kubectl get svc nginx-test`
+`````
+
+![alt text](Screenshots/nginx-svc.PNG)
