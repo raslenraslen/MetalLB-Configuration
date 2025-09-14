@@ -172,3 +172,18 @@ kubectl get svc nginx-test`
 ![alt text](Screenshots/nginx-svc.PNG)
 
 
+**Si tu vois une EXTERNAL-IP de ta plage, MetalLB fonctionne !**
+
+
+# Étape 5: Accéder à ton Application
+
+Teste l'accès à ton application Nginx depuis ta machine hôte ou toute autre machine de ton réseau local.  
+
+````
+curl http://192.168.216.150 # Remplace par l'EXTERNAL-IP réelle de ton service
+````
+Ouvre également cette adresse dans ton navigateur web. Tu devrais voir la page d'accueil par défaut de Nginx.
+
+
+![alt text](Screenshots/test.PNG)
+
