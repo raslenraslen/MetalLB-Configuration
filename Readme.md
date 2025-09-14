@@ -20,3 +20,35 @@ Pour les clusters locaux (VMs, Bare-Metal), Kubernetes n'a pas cette capacité "
 *   `docker` ou `containerd` fonctionnel sur tes nœuds.
 *   Une plage d'adresses IP **libres et non utilisées** sur le **même sous-réseau** que tes nœuds Kubernetes.
     *   **Exemple :** Si tes nœuds ont les IPs `192.168.216.137` et `192.168.216.139`, tu peux choisir une plage comme `192.168.216.150-192.168.216.160`.
+
+
+
+### Optionnel : Provisionner un Cluster Kubernetes avec Ansible
+
+Si vous n'avez pas encore de cluster Kubernetes ou souhaitez en créer un rapidement et de manière reproductible, vous pouvez utiliser le playbook Ansible suivant :
+
+1.  **Assurez-vous d'avoir Ansible installé** sur votre machine locale.
+2.  **Clonez le dépôt ou naviguez** vers le répertoire contenant votre configuration Ansible pour Kubernetes (par exemple, `~/tutenv/ansible/`).
+3.  **Vérifiez ou adaptez votre fichier d'inventaire `inventory.ini`** pour qu'il pointe vers vos machines cibles (VMs ou physiques).
+4.  **Lancez le playbook Ansible** pour provisionner votre cluster :
+
+    ```bash
+    cd ~/tutenv/ansible  # Adaptez ce chemin si nécessaire
+    ansible-playbook -i inventory.ini ../cluster-k8s/playbook-cluster.yaml
+    ```
+    *Cette commande exécutera le playbook qui configurera un cluster Kubernetes Kubeadm multi-nœuds sur les machines spécifiées dans votre inventaire Ansible.*
+
+
+
+## 🚀 Étapes de Configuration de MetalLB
+
+Suis ces étapes pour installer et configurer MetalLB.
+
+### Étape 1: Identifier les Adresses IP de tes Nœuds
+
+Pour choisir une plage d'IP adéquate, vérifie le sous-réseau de tes nœuds Kubernetes.
+
+```bash
+kubectl get nodes -o wide
+
+``````
