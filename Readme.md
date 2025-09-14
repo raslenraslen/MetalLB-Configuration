@@ -1,6 +1,9 @@
 # Configuration de MetalLB dans un Cluster Kubernetes Local (Kubeadm/Bare-Metal)
 
+![alt text](Screenshots/metallb.png)
+
 Ce guide détaille l'installation et la configuration de MetalLB, un Load Balancer logiciel pour Kubernetes, essentiel pour exposer des services de type `LoadBalancer` dans des environnements qui ne sont pas hébergés sur un Cloud Provider (comme un cluster Kubeadm, Bare-Metal ou des VMs).
+
 
 
 ## 💡 Pourquoi MetalLB ?
@@ -167,3 +170,5 @@ kubectl get svc nginx-test`
 `````
 
 ![alt text](Screenshots/nginx-svc.PNG)
+
+
