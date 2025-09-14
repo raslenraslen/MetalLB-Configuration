@@ -52,3 +52,7 @@ Pour choisir une plage d'IP adéquate, vérifie le sous-réseau de tes nœuds Ku
 kubectl get nodes -o wide
 
 ``````
+
+![alt text](../Screenshots/nodes.PNG)
+
+
