@@ -55,4 +55,8 @@ kubectl get nodes -o wide
 
 ![alt text](Screenshots/nodes.PNG)
 
+# Étape 2: Installation de MetalLB
+
+
+
 
