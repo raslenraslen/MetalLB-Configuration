@@ -1,10 +1,3 @@
-kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.13.7/config/manifests/metallb-native.yaml
-
-kubectl get pods -n metallb-system
-
-kubectl get secret -n metallb-system memberlist -o yaml > filee.yaml
-
-kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)"
 
 ###########################################
 kubectl create ns metallb-system
